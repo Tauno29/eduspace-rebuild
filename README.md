@@ -15,7 +15,7 @@ pnpm install
 pnpm dev
 ```
 
-The project is a static frontend. New users begin with the four onboarding slides, then complete `/setup` before reaching Home. Returning users with a completed local profile open `/home` directly. To validate the code and create a production build:
+The project is a static frontend. New users begin with the four onboarding slides, then complete `/setup` before reaching Home. Returning users with a completed local profile open `/home` directly. No mock or screenshot-derived school/region records are bundled into the live path; configure `VITE_EDUSPACE_DATA_URL` before using data-driven screens. Top Availability lists every configured school with `spaces > 0`, sorted highest first. To validate the code and create a production build:
 
 ```bash
 pnpm check
@@ -47,4 +47,4 @@ Open `/` for onboarding. Selecting Continue or Skip stores the onboarding state 
 | `/school/nuyoma?hostel=1` | Hostel Statistics sheet open |
 | `/availability?grade=8` | Grade 8 expanded |
 
-To reset onboarding during testing, clear the browser local-storage keys `eduspace-onboarded` and `eduspace-user-name`. The saved-school state is stored under `eduspace-saved-nuyoma`. A typed real-data adapter is documented in [`DATA_SOURCE.md`](./DATA_SOURCE.md) and can be configured with `VITE_EDUSPACE_DATA_URL` once an authoritative API is supplied.
+To reset onboarding during testing, clear the browser local-storage keys `eduspace-onboarded`, `eduspace-user-name`, and `eduspace-profile`. Saved-school state uses `eduspace-saved-{schoolId}`. Profile edits are persisted through the shared profile context and local storage. A typed real-data adapter, payload contract, and missing-source behavior are documented in [`DATA_SOURCE.md`](./DATA_SOURCE.md).

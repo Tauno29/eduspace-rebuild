@@ -1,11 +1,12 @@
 /* EduSpace recovery style: the new references define a four-slide onboarding sequence and a full 14-region Home grid with Tauno / TA profile identity. */
 
 import { useState } from "react";
-import { Bell, BookOpen, GraduationCap, Map, Search, Sparkles } from "lucide-react";
+import { Bell, GraduationCap, Map, Search, Sparkles } from "lucide-react";
 import { useLocation } from "wouter";
+import { useProfile } from "@/contexts/ProfileContext";
 import { AppFrame, EduMark } from "@/components/eduspace/Chrome";
-import { RegionCard } from "@/components/eduspace/UI";
-import { regions } from "@/data/eduspace";
+import { DataNotice, RegionCard } from "@/components/eduspace/UI";
+import { useEduSpaceData } from "@/contexts/DataContext";
 
 const onboardingSlides = [
   { title: "Welcome to Edu Space", copy: "Your central gateway to the Namibian National School Placement Database. Find the perfect school for your child with ease.", icon: GraduationCap },
@@ -35,13 +36,15 @@ export function OnboardingPage() {
 
 export default function HomePage() {
   const [, navigate] = useLocation();
-  const [userName] = useState(() => window.localStorage.getItem("eduspace-user-name") || "Tauno");
+  const { profile } = useProfile();
+  const { status, data, reload } = useEduSpaceData();
+  const userName = profile.name || "Your name";
   return (
     <AppFrame className="home-screen">
-      <div className="home-header"><EduMark /><div className="home-header-actions"><button className="circle-button" onClick={() => navigate("/alerts")} aria-label="Open alerts"><Bell size={15} /></button><button className="avatar-button" onClick={() => navigate("/profile")} aria-label="Open profile">TA</button></div></div>
+      <div className="home-header"><EduMark /><div className="home-header-actions"><button className="circle-button" onClick={() => navigate("/alerts")} aria-label="Open alerts"><Bell size={15} /></button><button className="avatar-button" onClick={() => navigate("/profile")} aria-label="Open profile">{(profile.name || "TA").slice(0, 2).toUpperCase()}</button></div></div>
       <button className="home-search" onClick={() => navigate("/search")}><Search size={15} strokeWidth={1.8} /><span>Search schools, towns or regions...</span></button>
       <section className="greeting-block"><div><p className="eyebrow">Good evening</p><h1>{userName}</h1><p>Find the perfect school for your child anywhere in Namibia.</p></div><div className="greeting-emoji"><span>😀</span><Sparkles size={12} /></div></section>
-      <section className="region-section"><div className="section-heading-row"><h2>Explore by region</h2><button onClick={() => navigate("/regions")}>View all <span>→</span></button></div><div className="region-grid">{regions.map((region) => <RegionCard key={region.id} {...region} onClick={() => navigate(`/region/${region.id}`)} />)}</div></section>
+      <section className="region-section"><div className="section-heading-row"><h2>Explore by region</h2>{status === "ready" && <button onClick={() => navigate("/regions")}>View all <span>→</span></button>}</div>{status === "ready" && data ? <div className="region-grid">{data.regions.map((region) => <RegionCard key={region.id} {...region} onClick={() => navigate(`/region/${region.id}`)} />)}</div> : <DataNotice onRetry={reload} title={status === "loading" ? "Loading live regions" : "Live regions unavailable"} copy={status === "loading" ? "Fetching the latest region records." : "Connect an authoritative EduSpace data source to display current regional school records."} />}</section>
     </AppFrame>
   );
 }

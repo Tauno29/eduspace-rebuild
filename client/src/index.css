@@ -442,3 +442,20 @@ button:active { transform: scale(0.98); }
 /* Setup layout correction: AppFrame owns the status bar, so center only the screen content instead of flexing the entire frame. */
 .setup-screen { display: block; padding: 0; }
 .setup-screen .screen-content { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 24px); padding: 24px; }
+
+/* Live-data states: preserve the EduSpace card language while making missing or empty authoritative data visible instead of silently mocked. */
+.data-notice { display: flex; flex-direction: column; align-items: center; margin: 20px 22px; padding: 28px 22px; text-align: center; border: 1px dashed #cfd4e5; border-radius: 18px; background: rgba(255,255,255,.72); }
+.data-notice-dot { width: 26px; height: 26px; margin-bottom: 11px; border-radius: 50%; background: var(--indigo-soft); box-shadow: inset 0 0 0 6px #f7f6ff; }
+.data-notice h2 { margin: 0 0 7px; font-family: "Poppins", sans-serif; font-size: 12px; }
+.data-notice p { max-width: 245px; margin: 0; color: #7e8798; font-size: 8px; line-height: 1.5; }
+.data-notice button { margin-top: 14px; color: var(--indigo); font-size: 9px; font-weight: 800; }
+.eligible-schools { margin: 0 20px 19px; }
+.eligible-schools h2 { margin: 0 0 10px; font-family: "Poppins", sans-serif; font-size: 10px; }
+.eligible-school-row { display: flex; align-items: center; width: 100%; min-height: 54px; margin-bottom: 8px; padding: 7px 8px; text-align: left; border: 1px solid #e4e8f2; border-radius: 14px; background: #fff; box-shadow: var(--shadow-card); }
+.eligible-rank { display: grid; place-items: center; width: 21px; height: 21px; margin-right: 7px; color: var(--indigo); border-radius: 50%; background: var(--indigo-soft); font-family: "Poppins", sans-serif; font-size: 8px; font-weight: 800; }
+.eligible-school-row .school-thumb { width: 38px; height: 38px; border-radius: 10px; }
+.eligible-school-copy { display: flex; flex-direction: column; min-width: 0; flex: 1; gap: 2px; padding-left: 8px; }
+.eligible-school-copy strong { overflow: hidden; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+.eligible-school-copy small { color: #8c94a4; font-size: 6px; }
+.eligible-school-copy em { color: var(--mint); font-size: 7px; font-style: normal; font-weight: 800; }
+.availability-screen .eligible-schools + .vacancies { margin-top: 8px; }

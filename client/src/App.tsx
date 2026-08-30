@@ -6,6 +6,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { ProfileProvider, useProfile } from "./contexts/ProfileContext";
+import { DataProvider } from "./contexts/DataContext";
 import HomePage, { OnboardingPage } from "./pages/Home";
 import SearchPage, { RegionsPage, RegionDetailPage } from "./pages/Search";
 import { SavedPage, AlertsPage, ProfilePage } from "./pages/Account";
@@ -14,7 +16,8 @@ import { AboutPage, HelpSupportPage, PersonalInfoPage, PrivacyPage, ProfileSetup
 import NotFound from "./pages/NotFound";
 
 function EntryPage() {
-  const [onboarded] = useState(() => window.localStorage.getItem("eduspace-onboarded") === "true" && Boolean(window.localStorage.getItem("eduspace-user-name")));
+  const { profile } = useProfile();
+  const [onboarded] = useState(() => window.localStorage.getItem("eduspace-onboarded") === "true" && Boolean(profile.name));
   return onboarded ? <HomePage /> : <OnboardingPage />;
 }
 
@@ -47,8 +50,12 @@ export default function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
-          <Toaster />
-          <Router />
+          <ProfileProvider>
+            <DataProvider>
+              <Toaster />
+              <Router />
+            </DataProvider>
+          </ProfileProvider>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

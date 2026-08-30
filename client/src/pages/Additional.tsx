@@ -4,13 +4,15 @@ import { useState } from "react";
 import { ChevronDown, ChevronLeft, CircleHelp, Mail, Phone, Save, ShieldCheck, GraduationCap, UserRound } from "lucide-react";
 import { useLocation } from "wouter";
 import { AppFrame, AppTopBar } from "@/components/eduspace/Chrome";
+import { useProfile } from "@/contexts/ProfileContext";
 
 export function ProfileSetupPage() {
   const [, navigate] = useLocation();
+  const { saveProfile } = useProfile();
   const [name, setName] = useState("");
   const start = () => {
     if (!name.trim()) return;
-    window.localStorage.setItem("eduspace-user-name", name.trim());
+    saveProfile({ name, region: "", town: "" });
     window.localStorage.setItem("eduspace-onboarded", "true");
     navigate("/home");
   };
@@ -31,13 +33,12 @@ export function ProfileSetupPage() {
 
 export function PersonalInfoPage() {
   const [, navigate] = useLocation();
-  const [name, setName] = useState(() => window.localStorage.getItem("eduspace-user-name") || "Tauno");
-  const [region, setRegion] = useState("Khomas Region");
-  const [town, setTown] = useState("Windhoek");
+  const { profile, saveProfile } = useProfile();
+  const [name, setName] = useState(profile.name || "Tauno");
+  const [region, setRegion] = useState(profile.region || "Khomas Region");
+  const [town, setTown] = useState(profile.town || "Windhoek");
   const save = () => {
-    window.localStorage.setItem("eduspace-user-name", name);
-    window.localStorage.setItem("eduspace-user-region", region);
-    window.localStorage.setItem("eduspace-user-town", town);
+    saveProfile({ name, region, town });
     navigate("/profile");
   };
   return (

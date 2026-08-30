@@ -87,3 +87,7 @@ export function EmptyState({ icon, title, copy, action, onAction }: { icon: Reac
 export function SectionLabel({ children }: { children: ReactNode }) {
   return <p className="section-label">{children}</p>;
 }
+
+export function DataNotice({ title = "Live data required", copy = "This screen is waiting for an authoritative EduSpace data source. Configure VITE_EDUSPACE_DATA_URL to load live records.", onRetry }: { title?: string; copy?: string; onRetry?: () => void }) {
+  return <section className="data-notice"><div className="data-notice-dot" /><h2>{title}</h2><p>{copy}</p>{onRetry && <button onClick={onRetry}>Try again <span>→</span></button>}</section>;
+}

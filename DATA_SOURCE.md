@@ -1,19 +1,50 @@
 # EduSpace Data Source Boundary
 
-The current frontend uses a **verified reference-derived data set** reconstructed from the supplied screenshots. It is intentionally not presented as live Ministry data because no production API, database connection, or authenticated data source was supplied with the lost application.
+The application no longer bundles mock, sample, or screenshot-derived school and region records into its live data path. Every data-driven screen waits for an authoritative source configured through `VITE_EDUSPACE_DATA_URL`.
 
-The data model is in `client/src/data/eduspace.ts`. It includes the 14 regions visible across the Home references, the Nuyoma Senior Secondary School profile visible in the school references, seat-allocation metrics, grade vacancy rows, and hostel statistics. These values preserve the visible structure and values from the screenshots; they are not claims about current real-world school capacity.
+The typed contract is defined in `client/src/data/eduspace.ts`, while `client/src/data/source.ts` loads and validates a JSON document containing `regions`, `schools`, and `vacancyRows`. If the environment variable is missing, the app shows an explicit configuration state. If the endpoint fails or returns an invalid shape, the app shows an error state and offers retry. This prevents an apparently live experience from silently displaying invented records.
 
-`client/src/data/source.ts` defines the next integration boundary. If `VITE_EDUSPACE_DATA_URL` is provided, `loadEduSpaceData()` fetches a JSON payload with `regions`, `schools`, and `vacancyRows`, validates the top-level shape, and returns it. Without that environment variable, the app returns the verified reference-derived data. The actual production endpoint, authentication method, refresh policy, and authoritative data contract should be supplied before enabling live data.
-
-Expected top-level JSON shape:
+The expected top-level JSON shape is:
 
 ```json
 {
-  "regions": [],
-  "schools": [],
-  "vacancyRows": []
+  "regions": [
+    {
+      "id": "string",
+      "name": "string",
+      "schools": 0,
+      "available": 0,
+      "icon": "string",
+      "tone": "string"
+    }
+  ],
+  "schools": [
+    {
+      "id": "string",
+      "name": "string",
+      "region": "string",
+      "location": "string",
+      "category": "Primary | Secondary | Combined",
+      "type": "Government | Private",
+      "spaces": 0,
+      "boarding": "Hostel | Day school",
+      "image": "https://…",
+      "description": "string"
+    }
+  ],
+  "vacancyRows": [
+    {
+      "grade": "string",
+      "note": "string",
+      "enrolled": 0,
+      "capacity": 0,
+      "occupied": 0,
+      "streams": []
+    }
+  ]
 }
 ```
 
-This boundary keeps the current visual reconstruction deterministic while leaving a clear, typed path for the real-data implementation after the user provides the source details.
+Top Availability calls `getEligibleSchools()`, which includes every source school whose numeric `spaces` value is greater than zero and sorts them from highest to lowest available spaces. When no eligible schools are returned, the screen explicitly says so rather than showing a placeholder school.
+
+The production URL, authentication method, refresh policy, and authoritative data contract still need to be supplied before enabling live records. No unsupported live service has been invented.

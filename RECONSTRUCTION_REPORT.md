@@ -42,15 +42,15 @@ Navigation works across the persistent Home, Search, Saved, Alerts, and Profile 
 
 ## Data status and non-mock boundary
 
-The screenshots provide no production endpoint, authenticated Ministry connection, database credentials, or authoritative live-data contract. For that reason, the current visible dataset is explicitly **reference-derived verified data**, not a claim of current live capacity. It preserves the screenshot-visible regions, school, occupancy numbers, vacancy structure, hostel values, names, and support copy so the interface is not left blank.
+The application no longer bundles mock, sample, or screenshot-derived school and region records into its live data path. The typed adapter in `client/src/data/source.ts` requires `VITE_EDUSPACE_DATA_URL` and loads a JSON payload containing `regions`, `schools`, and `vacancyRows`. Missing configuration, endpoint failures, invalid payloads, and empty results render explicit states rather than silently showing invented records.
 
-The typed adapter in `client/src/data/source.ts` defines the real-data boundary. If `VITE_EDUSPACE_DATA_URL` is supplied later, `loadEduSpaceData()` fetches a JSON payload containing `regions`, `schools`, and `vacancyRows`, validates the top-level structure, and returns it. Without that configuration, it returns the reference-derived data. The production URL, authentication method, refresh policy, and authoritative contract must be supplied before enabling live data; no unsupported live service was invented.
+Top Availability calls `getEligibleSchools()`, includes every configured school whose numeric `spaces` value is greater than zero, sorts results from highest to lowest available spaces, and renders every eligible school. If the authoritative source returns no eligible schools, the screen says so. The source URL, authentication method, refresh policy, and final contract still need to be supplied before enabling live records; no unsupported live service was invented.
 
 ## Assumptions and unresolved areas
 
 Several screenshots are composites or contain small text. Where exact copy was not reliably legible, the closest visible wording was retained or a conservative equivalent was used. Icons were recreated with vector icons and simple symbol treatments because original source assets were not present. The classroom hero uses a visually similar generated classroom asset because the exact source photograph was not separately supplied.
 
-Authentication, true push notifications, real-time Ministry synchronization, account deletion, production search results, and server-side persistence cannot be recovered from screenshots alone. They remain intentionally bounded for the next user-directed implementation step.
+Authentication, true push notifications, real-time Ministry synchronization, account deletion, and server-side persistence cannot be recovered from screenshots alone. Profile edits now persist through a shared context and local storage across Home, Profile, and Personal Information; school records and availability remain dependent on the configured authoritative source.
 
 ## Verification
 
@@ -70,4 +70,4 @@ pnpm check
 pnpm build
 ```
 
-Clear `eduspace-onboarded` and `eduspace-user-name` from local storage to replay onboarding. Clear `eduspace-saved-nuyoma` to reset the saved-school state. Additional direct verification routes are documented in `README.md`.
+Clear `eduspace-onboarded`, `eduspace-user-name`, and `eduspace-profile` from local storage to replay onboarding. Saved-school state uses `eduspace-saved-{schoolId}`. Configure `VITE_EDUSPACE_DATA_URL` with the authoritative JSON endpoint before using live data screens. Additional direct verification routes are documented in `README.md`.
