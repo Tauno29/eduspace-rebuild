@@ -10,10 +10,11 @@ import HomePage, { OnboardingPage } from "./pages/Home";
 import SearchPage, { RegionsPage, RegionDetailPage } from "./pages/Search";
 import { SavedPage, AlertsPage, ProfilePage } from "./pages/Account";
 import { AvailabilityPage, SchoolProfilePage } from "./pages/School";
+import { AboutPage, HelpSupportPage, PersonalInfoPage, PrivacyPage, ProfileSetupPage } from "./pages/Additional";
 import NotFound from "./pages/NotFound";
 
 function EntryPage() {
-  const [onboarded] = useState(() => window.localStorage.getItem("eduspace-onboarded") === "true");
+  const [onboarded] = useState(() => window.localStorage.getItem("eduspace-onboarded") === "true" && Boolean(window.localStorage.getItem("eduspace-user-name")));
   return onboarded ? <HomePage /> : <OnboardingPage />;
 }
 
@@ -22,6 +23,11 @@ function Router() {
     <Switch>
       <Route path="/" component={EntryPage} />
       <Route path="/home" component={HomePage} />
+      <Route path="/setup" component={ProfileSetupPage} />
+      <Route path="/personal-info" component={PersonalInfoPage} />
+      <Route path="/about" component={AboutPage} />
+      <Route path="/support" component={HelpSupportPage} />
+      <Route path="/privacy" component={PrivacyPage} />
       <Route path="/search" component={SearchPage} />
       <Route path="/saved" component={SavedPage} />
       <Route path="/alerts" component={AlertsPage} />

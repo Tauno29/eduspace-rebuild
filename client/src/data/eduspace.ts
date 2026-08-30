@@ -32,7 +32,7 @@ export const regions: Region[] = [
   { id: "kunene", name: "Kunene", schools: 0, available: 0, icon: "♧", tone: "blue" },
   { id: "ohangwena", name: "Ohangwena", schools: 0, available: 0, icon: "♧", tone: "lilac" },
   { id: "omaheke", name: "Omaheke", schools: 0, available: 0, icon: "✤", tone: "violet" },
-  { id: "omusati", name: "Omusati", schools: 1, available: 0, icon: "◡", tone: "mint" },
+  { id: "omusati", name: "Omusati", schools: 2, available: 39, icon: "◡", tone: "mint" },
   { id: "oshana", name: "Oshana", schools: 0, available: 0, icon: "◒", tone: "blue" },
   { id: "oshikoto", name: "Oshikoto", schools: 0, available: 0, icon: "◆", tone: "lilac" },
   { id: "otjozondjupa", name: "Otjozondjupa", schools: 0, available: 0, icon: "◎", tone: "violet" },

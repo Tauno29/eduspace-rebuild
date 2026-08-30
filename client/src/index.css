@@ -334,3 +334,111 @@ button:active { transform: scale(0.98); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
+
+/* Additional EduSpace recovery states: use the newer 540×1170 references as higher-confidence guidance for setup, modal sheets, account forms, support, and privacy surfaces. */
+.setup-screen { display: flex; align-items: center; justify-content: center; padding: 24px 24px 30px; background: #f1f3ff; }
+.setup-card { width: 100%; padding: 36px 24px 24px; text-align: center; border-radius: 22px; background: #fff; box-shadow: var(--shadow-soft); }
+.setup-illustration { display: grid; place-items: center; width: 78px; height: 78px; margin: 0 auto 20px; border-radius: 22px; background: #dcd9f3; font-size: 32px; }
+.setup-card h1 { margin: 0 0 7px; font-family: "Poppins", sans-serif; font-size: 22px; letter-spacing: -.6px; }
+.setup-card > p { margin: 0 0 27px; color: #798194; font-size: 10px; }
+.form-label { display: block; margin: 0 0 8px; color: #9ca5b5; font-family: "Poppins", sans-serif; font-size: 8px; font-weight: 800; letter-spacing: 1.2px; text-align: left; text-transform: uppercase; }
+.form-label em { color: #6c55e6; font-style: normal; }
+.large-input { display: block; width: 100%; height: 45px; margin-bottom: 17px; padding: 0 14px; color: #2d3547; border: 1px solid #e5e8f1; border-radius: 14px; outline: 0; background: #fff; box-shadow: inset 0 1px 2px rgba(82, 91, 128, .03); font-size: 10px; }
+.large-input::placeholder { color: #9fa6b5; }
+.setup-start { width: 100%; margin-top: 4px; }
+.setup-start:disabled { color: #fff; background: #bcb5f5; box-shadow: none; }
+.back-to-slides { margin-top: 20px; color: #5a4bdb; font-size: 9px; font-weight: 800; }
+.onboarding-frame .onboarding-mark { color: var(--indigo); }
+.onboarding-frame .onboarding-mark img { display: none; }
+.onboarding-frame .onboarding-content { padding-top: 120px; }
+.onboarding-frame .onboarding-copy h1 { font-size: 28px; }
+.onboarding-frame .onboarding-copy p { max-width: 290px; font-size: 12px; line-height: 1.6; }
+.onboarding-frame .onboarding-mark { width: 108px; height: 108px; margin-bottom: 54px; }
+.onboarding-frame .onboarding-dots { margin-top: 125px; }
+.onboarding-frame .onboarding-dots span { width: 7px; height: 7px; }
+.onboarding-frame .onboarding-dots span.active { width: 28px; }
+.onboarding-frame .onboarding-continue { right: 24px; bottom: 25px; left: 24px; height: 48px; border-radius: 15px; font-size: 12px; }
+.skip-button { top: 69px; right: 39px; font-size: 12px; }
+.selection-layer { position: absolute; z-index: 50; inset: 0; }
+.selection-scrim { position: absolute; inset: 0; width: 100%; height: 100%; background: rgba(45, 53, 72, .64); }
+.selection-sheet { position: absolute; right: 22px; bottom: 148px; left: 22px; max-height: 560px; overflow: hidden; border-radius: 24px; background: #fff; box-shadow: 0 12px 27px rgba(34, 43, 73, .18); animation: sheet-up .24s var(--ease-out); }
+.selection-sheet h2 { margin: 27px 24px 0; padding-bottom: 18px; border-bottom: 1px solid #edf0f5; font-family: "Poppins", sans-serif; font-size: 17px; letter-spacing: -.4px; }
+.selection-options { max-height: 500px; overflow-y: auto; }
+.selection-options button { display: block; width: 100%; padding: 17px 24px; color: #525b6d; border-bottom: 1px solid #f0f2f6; text-align: left; font-size: 12px; }
+.selection-options button.selected { color: #5446d8; font-weight: 800; }
+.selection-options button:last-child { border-bottom: 0; }
+.search-screen .page-intro h1, .saved-screen .page-intro h1, .alerts-screen .page-intro h1, .profile-screen .page-intro h1 { font-size: 27px; }
+.search-screen .page-intro p, .saved-screen .page-intro p, .alerts-screen .page-intro p, .profile-screen .page-intro p { font-size: 11px; }
+.search-screen .category-grid { gap: 14px; }
+.search-screen .category-card { min-height: 116px; padding: 15px; border-radius: 17px; }
+.search-screen .category-card strong { font-size: 12px; }
+.search-screen .category-card small { font-size: 10px; line-height: 1.35; }
+.search-screen .tone-icon { width: 34px; height: 34px; margin-bottom: 13px; border-radius: 50%; }
+.regions-screen .region-grid { gap: 14px; }
+.regions-screen .region-card { min-height: 131px; padding: 19px 15px 14px; border-radius: 19px; }
+.regions-screen .region-card strong { font-size: 13px; }
+.regions-screen .region-card small, .regions-screen .explore-link { font-size: 10px; }
+.regions-screen .region-symbol { width: 26px; height: 26px; margin-bottom: 15px; font-size: 20px; }
+.regions-screen .availability-badge { top: 13px; right: 13px; padding: 5px 8px; font-size: 9px; }
+.personal-info-body { padding: 40px 34px 0; }
+.personal-avatar { display: grid; place-items: center; width: 91px; height: 91px; margin: 0 auto 42px; color: #fff; border-radius: 24px; background: var(--indigo); font-family: "Poppins", sans-serif; font-size: 27px; font-weight: 800; }
+.personal-info-body .form-label { margin-left: 7px; font-size: 10px; }
+.personal-info-body .large-input { height: 59px; margin-bottom: 28px; padding: 0 20px; border-radius: 19px; font-size: 16px; }
+.save-info-button { height: 62px; margin-top: 4px; border-radius: 19px; font-size: 15px; }
+.about-body { display: flex; flex-direction: column; align-items: center; padding: 42px 33px 0; text-align: center; }
+.about-icon { display: grid; place-items: center; width: 90px; height: 90px; color: #7669e8; border-radius: 23px; background: #bdbbe0; }
+.about-body h1 { margin: 40px 0 1px; color: #fff; font-family: "Poppins", sans-serif; font-size: 26px; }
+.about-namibia { color: var(--indigo); font-family: "Poppins", sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 4px; }
+.about-divider { width: 42px; height: 4px; margin: 28px 0 29px; border-radius: 4px; background: #725bdd; }
+.about-body > strong { color: #8a93a2; font-family: "Poppins", sans-serif; font-size: 12px; }
+.about-body > p { margin: 12px 0 24px; color: #687285; font-size: 11px; line-height: 1.45; }
+.about-body > small { color: #a0a8b6; font-family: "Poppins", sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 3px; }
+.support-body { padding: 42px 22px 0; }
+.support-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.support-contact { display: flex; flex-direction: column; min-height: 157px; padding: 21px 20px; color: #fff; border-radius: 23px; }
+.support-contact.call { background: linear-gradient(135deg, #5b4af0, #4b39dd); }
+.support-contact.email { background: #0b9a73; }
+.support-contact strong { margin-top: 23px; font-family: "Poppins", sans-serif; font-size: 14px; }
+.support-contact span { margin-top: 3px; font-size: 10px; line-height: 1.3; }
+.support-body > h1 { margin: 32px 0 20px; font-family: "Poppins", sans-serif; font-size: 20px; letter-spacing: -.6px; }
+.faq-list { display: flex; flex-direction: column; gap: 11px; }
+.faq-item { overflow: hidden; border-radius: 17px; background: #fff; box-shadow: 0 2px 6px rgba(76, 87, 126, .03); }
+.faq-item button { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 20px; text-align: left; }
+.faq-item button strong { max-width: 88%; font-size: 12px; line-height: 1.25; }
+.faq-chevron { color: #a0a7b4; }
+.open-chevron { color: #6556dd; transform: rotate(180deg); }
+.faq-item p { margin: 0; padding: 0 20px 20px; color: #6f788a; border-top: 1px solid #f0f1f5; font-size: 12px; line-height: 1.55; }
+.privacy-body { padding: 45px 32px 80px; }
+.privacy-icon { display: block; margin: 0 auto 31px; color: #646d7d; }
+.privacy-body > h1 { margin: 0; text-align: center; font-family: "Poppins", sans-serif; font-size: 25px; }
+.last-updated { margin: 6px 0 36px; color: #a1a8b4; font-family: "Poppins", sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-align: center; }
+.privacy-section { margin-bottom: 28px; }
+.privacy-section h2 { margin: 0 0 8px; font-family: "Poppins", sans-serif; font-size: 13px; }
+.privacy-section p { margin: 0; color: #636d80; font-size: 12px; line-height: 1.6; }
+@media (max-width: 380px) {
+  .onboarding-frame .onboarding-copy h1 { font-size: 24px; }
+  .onboarding-frame .onboarding-copy p { font-size: 10px; }
+  .support-contact { padding: 16px; }
+  .support-contact strong { font-size: 12px; }
+}
+
+/* Scroll behavior correction from the full Home-grid references: the portrait shell scrolls while the rounded navigation dock stays pinned to the viewport. */
+.device-frame { height: 100vh; max-height: 100vh; overflow-y: auto; overflow-x: hidden; }
+.bottom-nav { position: fixed; right: auto; left: 50%; width: calc(100% - 26px); max-width: 364px; transform: translateX(-50%); }
+@media (min-width: 600px) {
+  .device-frame { height: 100vh; max-height: 100vh; }
+  .bottom-nav { bottom: 16px; }
+}
+
+/* Latest reference corrections: preserve readable brand contrast and the larger raised cards visible in the full-height Home screenshots. */
+.about-body h1 { color: var(--foreground); }
+.home-screen .region-card { min-height: 131px; padding: 18px 15px 14px; border-radius: 19px; }
+.home-screen .region-card strong { font-size: 13px; }
+.home-screen .region-card small, .home-screen .explore-link { font-size: 10px; }
+.home-screen .region-symbol { width: 26px; height: 26px; margin-bottom: 14px; font-size: 20px; }
+.home-screen .availability-badge { top: 13px; right: 13px; padding: 5px 8px; font-size: 9px; }
+.home-screen .region-grid { gap: 14px; }
+
+/* Setup layout correction: AppFrame owns the status bar, so center only the screen content instead of flexing the entire frame. */
+.setup-screen { display: block; padding: 0; }
+.setup-screen .screen-content { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 24px); padding: 24px; }

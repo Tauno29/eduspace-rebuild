@@ -15,7 +15,7 @@ pnpm install
 pnpm dev
 ```
 
-The project is a static frontend. To validate the code and create a production build:
+The project is a static frontend. New users begin with the four onboarding slides, then complete `/setup` before reaching Home. Returning users with a completed local profile open `/home` directly. To validate the code and create a production build:
 
 ```bash
 pnpm check
@@ -27,11 +27,19 @@ Open `/` for onboarding. Selecting Continue or Skip stores the onboarding state 
 | Route | Screen |
 |---|---|
 | `/` | Onboarding entry |
-| `/home` | Homepage |
+| `/home` | Homepage and full 14-region grid |
+| `/setup` | Profile setup after onboarding |
 | `/search` | Search |
+| `/search?modal=region` | Region selection modal |
+| `/search?modal=grade` | Grade selection modal |
+| `/search?modal=type` | School Type selection modal |
 | `/saved` | Saved schools |
 | `/alerts` | Alerts |
 | `/profile` | Profile |
+| `/personal-info` | Personal Information |
+| `/support` | Help & Support |
+| `/about` | About Edu Space |
+| `/privacy` | Privacy Policy |
 | `/regions` | Region selection |
 | `/region/oshikoto` | Region detail |
 | `/school/nuyoma` | School Profile |
@@ -39,4 +47,4 @@ Open `/` for onboarding. Selecting Continue or Skip stores the onboarding state 
 | `/school/nuyoma?hostel=1` | Hostel Statistics sheet open |
 | `/availability?grade=8` | Grade 8 expanded |
 
-To reset onboarding during testing, clear the browser local-storage key `eduspace-onboarded`. The saved-school state is stored under `eduspace-saved-nuyoma`.
+To reset onboarding during testing, clear the browser local-storage keys `eduspace-onboarded` and `eduspace-user-name`. The saved-school state is stored under `eduspace-saved-nuyoma`. A typed real-data adapter is documented in [`DATA_SOURCE.md`](./DATA_SOURCE.md) and can be configured with `VITE_EDUSPACE_DATA_URL` once an authoritative API is supplied.

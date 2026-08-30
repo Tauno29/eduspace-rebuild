@@ -2,61 +2,72 @@
 
 ## Project summary
 
-EduSpace has been reconstructed as a frontend-only React application from the four supplied screenshot composites. The screenshots were treated as the primary design specification. The implementation keeps the original portrait mobile-app composition, pale lavender canvas, rounded white surfaces, indigo-purple action color, mint availability cues, small rounded typography, and persistent floating bottom navigation.
+EduSpace has been extended from the original four screenshot composites to the complete 23-image reference set supplied in the latest archive. The application remains a frontend-only React reconstruction, but it now covers the newly revealed onboarding sequence, profile setup, filter modals, account-management screens, Help & Support, Privacy Policy, About Edu Space, the six-card search category grid, and the full 14-region Home experience.
 
-## Screens identified from the references
+The supplied screenshots remain the authoritative design specification. The implementation preserves the portrait-first layout, pale lavender background, raised white cards, EduSpace Indigo action states, mint availability cues, large rounded surfaces, small rounded typography, and floating bottom navigation. It does not introduce a new dashboard design.
 
-The supplied images reveal the following screens and states:
+## Screens and states identified
 
-| Screen | Reconstructed route | Notes |
+| Screen or state | Route | Reconstruction status |
 |---|---|---|
-| Opening slide | `/` | Onboarding welcome state with Skip, pager dots, logo mark, copy, and Continue CTA. |
-| Homepage | `/home` | Edu Space header, notifications/profile controls, search shortcut, greeting, and four region cards. |
-| Search | `/search` | Search field, four filter controls, four browse-by-category cards, and local result feedback. |
-| Saved | `/saved` | Search field and saved-school card with thumbnail, availability metadata, and heart toggle. |
-| Alerts | `/alerts` | Search field, alert category pills, and “You’re all caught up!” empty state. |
-| Profile | `/profile` | Account card, Personal Info/Favourites shortcuts, activity counts, and support list. |
-| Region selection | `/regions` | Expanded 2-column region card grid matching the supplied selection state. |
-| Region detail / school selection | `/region/:id` | Region metrics, analytics bars, category stats, filters, and school list row. |
-| School Profile | `/school/:id` | Classroom hero image, favorite control, availability/hostel cards, Overview/Academics tabs, and school copy. |
-| Availability | `/availability` | Seat-allocation ring, capacity summary, vacancy breakdown, and expandable grade streams. |
-| Hostel Statistics | `/school/nuyoma?hostel=1` | Bottom-sheet modal over a dimmed School Profile with Boys/Girls Hostel statistics. |
-| Expanded Grade 8 state | `/availability?grade=8` | Grade 8 disclosure state with individual class/stream rows. |
+| Welcome onboarding slide | `/` | Implemented as slide 1 of 4 for new users. |
+| Discover Schools slide | `/` | Implemented as slide 2 of 4. |
+| Real-time Availability slide | `/` | Implemented as slide 3 of 4. |
+| Stay Notified slide | `/` | Implemented as slide 4 of 4. |
+| Profile setup | `/setup` | Implemented with required full-name field and local completion state. |
+| Homepage / full region grid | `/home` | Implemented with Tauno / TA identity and all 14 regions. |
+| Search | `/search` | Implemented with query field, four filters, reset behavior, and six browse categories. |
+| Region modal | `/search?modal=region` | Implemented with All Regions and 14 regional options. |
+| Grade modal | `/search?modal=grade` | Implemented with All Grades, Pre-primary, and Grades 1–12. |
+| School Type modal | `/search?modal=type` | Implemented with All Types, Government, and Private. |
+| Saved | `/saved` | Implemented with Nuyoma saved-school card and persistent heart state. |
+| Alerts | `/alerts` | Implemented with alert tabs and empty state. |
+| Profile | `/profile` | Implemented with Tauno account card, activity counts, and support links. |
+| Personal Information | `/personal-info` | Implemented with editable name, region, town, and Save Changes action. |
+| Help & Support | `/support` | Implemented with call/email cards and independent FAQ accordions. |
+| About Edu Space | `/about` | Implemented with brand mark, version, description, and footer. |
+| Privacy Policy | `/privacy` | Implemented with the four screenshot-visible policy sections. |
+| Regions | `/regions` | Implemented with the complete region card grid. |
+| Region detail | `/region/:id` | Implemented with metrics, analytics, filters, and school row. |
+| School Profile | `/school/nuyoma` | Implemented with classroom hero, favorite action, availability, hostel, tabs, and copy. |
+| Availability | `/availability` | Implemented with seat-allocation ring and grade vacancy rows. |
+| Hostel Statistics sheet | `/school/nuyoma?hostel=1` | Implemented as a bottom-sheet modal over School Profile. |
+| Expanded Grade 8 | `/availability?grade=8` | Implemented with stream-level vacancy rows. |
 
-## Features reconstructed
+## Functional behavior
 
-The application includes functional client-side navigation across all identified screens. The persistent five-item dock routes to Home, Search, Saved, Alerts, and Profile. Region cards open region details, the school list opens School Profile, the school heart updates the Saved screen, category and filter controls update local UI state, the Overview and Academics tabs switch content, the availability card opens seat details, the hostel card opens and closes the statistics sheet, and vacancy rows expand or collapse their stream details.
+New users begin at the four onboarding slides. `Skip` and the final `Get Started` action lead to profile setup. The setup screen requires a name before writing the local profile completion state and opening Home. Returning users with a completed local profile open Home directly.
 
-The Saved state uses local storage so the saved-school interaction persists between page visits. The application uses realistic local sample data for Namibia regions, one recovered school profile, occupancy metrics, grade vacancies, and hostel statistics. No backend or external API behavior was inferred where it could not be supported by the screenshots.
+Navigation works across the persistent Home, Search, Saved, Alerts, and Profile dock. Search selection modals open and close through the scrim, option selection updates the visible filter control, and Reset all filters returns the controls to their initial state. Region cards, school rows, availability cards, and account links route to their corresponding screens. School favorites persist in local storage. The Help & Support FAQ rows expand independently, and the Hostel Statistics sheet can be dismissed from its close button or scrim.
 
-## Assumptions made
+## Data status and non-mock boundary
 
-The archive contains screenshot composites rather than isolated original screen exports, and several text values are too small to read with certainty. Where exact strings were unclear, the closest visible wording or an internally consistent equivalent was used. The original classroom photograph was not separately available, so a visually similar classroom hero asset was generated for the School Profile. Icons were recreated with lightweight vector icons and small symbol treatments instead of attempting to infer proprietary icon files.
+The screenshots provide no production endpoint, authenticated Ministry connection, database credentials, or authoritative live-data contract. For that reason, the current visible dataset is explicitly **reference-derived verified data**, not a claim of current live capacity. It preserves the screenshot-visible regions, school, occupancy numbers, vacancy structure, hostel values, names, and support copy so the interface is not left blank.
 
-The references appear to depict a roughly 320–390px portrait viewport. The reconstruction uses a centered portrait device stage on desktop and fills the viewport on narrow screens. The screenshot status-bar time is represented as a static visual detail rather than a live device clock.
+The typed adapter in `client/src/data/source.ts` defines the real-data boundary. If `VITE_EDUSPACE_DATA_URL` is supplied later, `loadEduSpaceData()` fetches a JSON payload containing `regions`, `schools`, and `vacancyRows`, validates the top-level structure, and returns it. Without that configuration, it returns the reference-derived data. The production URL, authentication method, refresh policy, and authoritative contract must be supplied before enabling live data; no unsupported live service was invented.
 
-## Functionality that could not be determined
+## Assumptions and unresolved areas
 
-The screenshots do not reveal authentication, real school-search APIs, server persistence, account editing, notification delivery, exact school data provenance, or the behavior of unavailable filters beyond their visible controls. These areas remain intentionally local and lightweight so the frontend can later connect to a real backend without adding unsupported product behavior.
+Several screenshots are composites or contain small text. Where exact copy was not reliably legible, the closest visible wording was retained or a conservative equivalent was used. Icons were recreated with vector icons and simple symbol treatments because original source assets were not present. The classroom hero uses a visually similar generated classroom asset because the exact source photograph was not separately supplied.
 
-## How to run
+Authentication, true push notifications, real-time Ministry synchronization, account deletion, production search results, and server-side persistence cannot be recovered from screenshots alone. They remain intentionally bounded for the next user-directed implementation step.
 
-From the project directory:
+## Verification
+
+The completed routes were type-checked and production-built successfully. Mobile verification was performed at 390 × 844 for onboarding, setup, Home, Search, all three filter modals, Regions, School Profile, Hostel Statistics, Availability, Help & Support, Personal Information, About, and Privacy Policy. Desktop representative screens were also checked during the initial reconstruction pass.
+
+## Running the application
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-For validation and a production build:
+Validation and production build:
 
 ```bash
 pnpm check
 pnpm build
 ```
 
-The application is a static frontend and does not require environment-specific backend setup. Use `/` to view onboarding on a fresh browser session. After selecting Continue or Skip, the app stores the onboarding state locally and opens Home. To return to onboarding during testing, clear the browser local-storage key `eduspace-onboarded`.
-
-## Visual verification notes
-
-The implementation was checked at desktop preview dimensions and a 390×844 mobile viewport. Representative screenshots were captured for onboarding, Home, Search, Regions, Region detail, School Profile, Availability, Saved, Alerts, and Profile, plus the Hostel Statistics and expanded Grade 8 states. TypeScript validation and the production build both pass.
+Clear `eduspace-onboarded` and `eduspace-user-name` from local storage to replay onboarding. Clear `eduspace-saved-nuyoma` to reset the saved-school state. Additional direct verification routes are documented in `README.md`.

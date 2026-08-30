@@ -51,12 +51,12 @@ export function ProfilePage() {
   return (
     <AppFrame className="profile-screen">
       <div className="page-intro"><h1>Profile</h1><p>Manage your account and preferences.</p></div>
-      <section className="profile-card"><div className="profile-avatar">T</div><div><strong>tt</strong><span>Parent</span><small><span className="tiny-pin">⌖</span> Khomas Region, Windhoek</small></div></section>
-      <div className="profile-shortcuts"><button onClick={() => undefined}><ToneIcon tone="lilac" kind="user" /><strong>Personal Info</strong><small>Manage details</small><b>3</b></button><button onClick={() => navigate("/saved")}><ToneIcon tone="pink" kind="pin" /><strong>Favourites</strong><small>Saved schools</small><b>{saved ? 1 : 0}</b></button></div>
+      <button className="profile-card" onClick={() => navigate("/personal-info")}><div className="profile-avatar">TA</div><div><strong>{window.localStorage.getItem("eduspace-user-name") || "Tauno"}</strong><span>Parent</span><small><span className="tiny-pin">⌖</span> {window.localStorage.getItem("eduspace-user-region") || "Khomas Region"}, {window.localStorage.getItem("eduspace-user-town") || "Windhoek"}</small></div></button>
+      <div className="profile-shortcuts"><button onClick={() => navigate("/personal-info")}><ToneIcon tone="lilac" kind="user" /><strong>Personal Info</strong><small>Manage details</small><b>3</b></button><button onClick={() => navigate("/saved")}><ToneIcon tone="pink" kind="pin" /><strong>Favourites</strong><small>Saved schools</small><b>{saved ? 1 : 0}</b></button></div>
       <SectionLabel>Your activity</SectionLabel>
       <section className="activity-card"><div><strong>{saved ? 1 : 0}</strong><small>Saved</small></div><div><strong>1</strong><small>Viewed</small></div></section>
       <SectionLabel>Support & more</SectionLabel>
-      <div className="support-list"><button><span className="support-icon"><CircleHelp size={13} /></span><span><strong>Help &amp; Support</strong><small>Get answers and assistance</small></span><span>›</span></button><button><span className="support-icon"><Settings2 size={13} /></span><span><strong>Preferences</strong><small>Notifications and app settings</small></span><span>›</span></button></div>
+      <div className="support-list"><button onClick={() => navigate("/support")}><span className="support-icon"><CircleHelp size={13} /></span><span><strong>Help &amp; Support</strong><small>Get answers and assistance</small></span><span>›</span></button><button onClick={() => navigate("/about")}><span className="support-icon"><Settings2 size={13} /></span><span><strong>About Edu Space</strong><small>Version and app information</small></span><span>›</span></button><button onClick={() => navigate("/privacy")}><span className="support-icon"><CircleHelp size={13} /></span><span><strong>Privacy Policy</strong><small>Data and security information</small></span><span>›</span></button></div>
     </AppFrame>
   );
 }
