@@ -1,8 +1,6 @@
-# EduSpace Canonical Region Directory Update
+# EduSpace GitHub Push
 
-- [x] Audit the current live data provider and region card rendering.
-- [x] Add the 14 canonical Namibian regions as display-only directory containers.
-- [x] Merge live source counts and availability into matching regions when updates arrive.
-- [x] Show an explicit awaiting-update state when a region has no live metrics.
-- [x] Verify the Home and Regions screens retain all 14 containers and remain data-driven.
-- [ ] Save an updated checkpoint and deliver the region directory change.
+- [ ] Check the current project checkpoint and remote state.
+- [ ] Push the latest changes to `Tauno29/eduspace-rebuild`.
+- [ ] Verify the remote `main` branch contains the latest commit.
+- [ ] Report the repository commit and link.
