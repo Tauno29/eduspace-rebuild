@@ -43,9 +43,9 @@ export function RegionCard({ name, schools, available, icon, tone, onClick }: { 
   return (
     <button className="region-card" onClick={onClick}>
       <div className={`region-symbol region-symbol-${tone}`}>{icon}</div>
-      <span className="availability-badge">{available}%</span>
+      <span className="availability-badge">{available > 0 ? `${available}%` : "—"}</span>
       <strong>{name}</strong>
-      <small>{schools} Schools</small>
+      <small>{schools > 0 ? `${schools} Schools` : "Awaiting update"}</small>
       <span className="explore-link">Explore <span>→</span></span>
     </button>
   );

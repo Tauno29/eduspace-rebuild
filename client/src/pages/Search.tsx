@@ -45,7 +45,7 @@ function SelectionModal({ filter, value, options, onSelect, onClose }: { filter:
 export function RegionsPage() {
   const [, navigate] = useLocation();
   const { status, data, reload } = useEduSpaceData();
-  return <AppFrame className="regions-screen"><div className="page-intro regions-intro"><h1>Regions</h1><p>Explore schools across all regions.</p></div>{status === "ready" && data ? <div className="region-grid all-regions">{data.regions.map((region) => <RegionCard key={region.id} {...region} onClick={() => navigate(`/region/${region.id}`)} />)}</div> : <DataNotice onRetry={reload} title={status === "loading" ? "Loading live regions" : "Live regions unavailable"} copy="Connect an authoritative EduSpace data source to display current regions." />}</AppFrame>;
+  return <AppFrame className="regions-screen"><div className="page-intro regions-intro"><h1>Regions</h1><p>Explore schools across all regions.</p></div>{data?.regions?.length ? <div className="region-grid all-regions">{data.regions.map((region) => <RegionCard key={region.id} {...region} onClick={() => navigate(`/region/${region.id}`)} />)}</div> : <DataNotice onRetry={reload} title={status === "loading" ? "Loading live regions" : "Live regions unavailable"} copy="Connect an authoritative EduSpace data source to display current regions." />}</AppFrame>;
 }
 
 export function RegionDetailPage() {

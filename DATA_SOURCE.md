@@ -1,6 +1,6 @@
 # EduSpace Data Source Boundary
 
-The application no longer bundles mock, sample, or screenshot-derived school and region records into its live data path. Every data-driven screen waits for an authoritative source configured through `VITE_EDUSPACE_DATA_URL`.
+The application keeps a permanent directory of the 14 canonical Namibian regions for navigation and display, but it no longer bundles mock, sample, or screenshot-derived school counts or availability into the live path. Live metrics and school records come from an authoritative source configured through `VITE_EDUSPACE_DATA_URL`.
 
 The typed contract is defined in `client/src/data/eduspace.ts`, while `client/src/data/source.ts` loads and validates a JSON document containing `regions`, `schools`, and `vacancyRows`. If the environment variable is missing, the app shows an explicit configuration state. If the endpoint fails or returns an invalid shape, the app shows an error state and offers retry. This prevents an apparently live experience from silently displaying invented records.
 
@@ -45,6 +45,6 @@ The expected top-level JSON shape is:
 }
 ```
 
-Top Availability calls `getEligibleSchools()`, which includes every source school whose numeric `spaces` value is greater than zero and sorts them from highest to lowest available spaces. When no eligible schools are returned, the screen explicitly says so rather than showing a placeholder school.
+Top Availability calls `getEligibleSchools()`, which includes every source school whose numeric `spaces` value is greater than zero and sorts them from highest to lowest available spaces. When no eligible schools are returned, the screen explicitly says so rather than showing a placeholder school. When a configured source is active, the provider refreshes its data every 60 seconds so updated region metrics and eligible-school records can appear without rebuilding the app.
 
 The production URL, authentication method, refresh policy, and authoritative data contract still need to be supplied before enabling live records. No unsupported live service has been invented.
